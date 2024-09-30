@@ -1,6 +1,7 @@
 package com.example.server.oauth.presentation;
 
 import com.example.server.oauth.application.OauthService;
+import com.example.server.oauth.domain.OauthMember;
 import com.example.server.oauth.domain.OauthServerType;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,20 @@ public class OauthController {
     }
 
     // 추가
+//    @GetMapping("/login/{oauthServerType}")
+//    ResponseEntity<String> login(
+//            @PathVariable OauthServerType oauthServerType,
+//            @RequestParam("code") String code
+//    ) {
+//        String login = oauthService.login(oauthServerType, code);
+//        return ResponseEntity.ok(login);
+//    }
     @GetMapping("/login/{oauthServerType}")
-    ResponseEntity<Long> login(
+    ResponseEntity<OauthMember> login(
             @PathVariable OauthServerType oauthServerType,
             @RequestParam("code") String code
     ) {
-        Long login = oauthService.login(oauthServerType, code);
-        return ResponseEntity.ok(login);
+        OauthMember oauthMember = oauthService.login(oauthServerType, code);
+        return ResponseEntity.ok(oauthMember);
     }
 }

@@ -19,10 +19,16 @@ public class OauthService {
         return authCodeRequestUrlProviderComposite.provide(oauthServerType);
     }
 
-    public Long login(OauthServerType oauthServerType, String authCode) {
+//    public String login(OauthServerType oauthServerType, String authCode) {
+//        OauthMember oauthMember = oauthMemberClientComposite.fetch(oauthServerType, authCode);
+//        OauthMember saved = oauthMemberRepository.findByOauthId(oauthMember.oauthId())
+//                .orElseGet(() -> oauthMemberRepository.save(oauthMember));
+//        return saved.id();
+//    }
+    public OauthMember login(OauthServerType oauthServerType, String authCode) {  // 수정된 부분
         OauthMember oauthMember = oauthMemberClientComposite.fetch(oauthServerType, authCode);
-        OauthMember saved = oauthMemberRepository.findByOauthId(oauthMember.oauthId())
+        return oauthMemberRepository.findByOauthId(oauthMember.oauthId())
                 .orElseGet(() -> oauthMemberRepository.save(oauthMember));
-        return saved.id();
     }
+
 }
